@@ -10,30 +10,6 @@ from os import listdir
 from os.path import isfile,join,isdir
 
 caliberate_path=os.getcwd()+'/caliberate'
-def read_fold():
-    files=[f for f in listdir(caliberate_path)]
-    ls=[]
-    for x in range(4):
-        ls.append(caliberate_path+'/'+files[x])
-        ls[x]=Image.open(ls[x])
-        ls[x]=ls[x].resize((50,50))
-        ls[x]=compute_avg_image_color(ls[x])
-    return (ls)
-
-def compute_avg_image_color(img):
-    width,height=img.size
-
-    r_total=0
-    g_total=0
-    b_total=0
-    for x in range(0,width):
-        for y in range(0,height):
-            r,g,b=img.getpixel((x,y))
-            r_total += r
-            g_total += g
-            b_total += b
-
-    return(r_total,g_total,b_total)
 
 
 def capture_images():
@@ -52,17 +28,12 @@ def capture_images():
     cam_activate(2000)
 
 def cam_activate(x):
-    cam =cv2.VideoCapture(sys.argv[0])
+    time.sleep(1)
+    cam =cv2.VideoCapture(1)
     s,im = cam.read()
     cv2.imwrite('cal%d.jpg'%x, im)
     cam.release()
 
 capture_images()
-a=read_fold()
 
-with open(caliberate_path+'/cal_values.txt','w') as fp:
-    for line in a:
-        strs=" ".join(str(x) for x in line)
-        fp.write(strs+"\n")
-
-print(a)
+print("done")
