@@ -1,5 +1,7 @@
+# Indian currency detector
+
 steps:
-1. run caliberate.py to caliberate the enviornment
+1. run caliberate.py to caliberate the enviornmentdc 
 2. run detect.py to detect
 
 requirements:
