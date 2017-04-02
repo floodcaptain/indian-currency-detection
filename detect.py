@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
 from os.path import isfile,join,isdir
 import numpy as np
