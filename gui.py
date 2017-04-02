@@ -15,6 +15,7 @@ import sys
 import tkMessageBox
 import Image
 from PIL import ImageTk
+from forex_python.converter import CurrencyRates
 
 caliberate_path=os.getcwd()+'/caliberate'
 output_path= os.getcwd()+ '/output'
@@ -52,16 +53,33 @@ def detect_callback():
 	        min_d= x
 	        
 	   
-	if min_d==0:
+	if min_d==0:	
 			return_string = ("Rs 10 ")
+			a=10
 	elif min_d==1:
-		    return_string = ("Rs 100")
+			return_string = ("Rs 100")
+			a=100
 	elif min_d==2:
-		    return_string = ("Rs 500")
+			return_string = ("Rs 500")
+			a=500
 	elif min_d==3:
-			return_string = ("Rs 2000")        
+			return_string = ("Rs 2000")
+			a=2000        
 
-	tkMessageBox.showinfo("DETECTION ALERT!", return_string)		
+	tkMessageBox.showinfo("DETECTION ALERT!", return_string+'\nUSD:'+str(convert_currency(a,'usd'))+\
+		'\nGBP:'+str(convert_currency(a,'GBP'))+\
+		'\nEUR:'+str(convert_currency(a,'EUR'))\
+		)
+
+
+def convert_currency(a,tocurrency):
+	c=CurrencyRates()
+	if tocurrency=='usd':
+		return (a*(c.get_rate('INR', 'USD')))
+	if 	tocurrency=='usd':
+		return (a*(c.get_rate('INR', 'GBP')))
+	if 	tocurrency=='EUR':
+		return (a*(c.get_rate('INR', 'EUR')))	
 
 
 def chk_file():
@@ -102,9 +120,4 @@ root.geometry('700x500')
 w = tk.Button(root,text ="Detect", command = detect_callback)
 w.pack()
 
-
-#Results.grid(row = 1, column = 1)
-'''img = ImageTk.PhotoImage(Image.open(caliberate_path+'/'+'output.jpg'))
-panel = tk.Label(master, image = img) '''
-#panel.pack(side = "bottom", fill = "both", expand = "yes")
 tk.mainloop()
