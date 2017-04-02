@@ -29,7 +29,7 @@ def capture_images():
 
 def cam_activate(x):
     time.sleep(1)
-    cam =cv2.VideoCapture(1)
+    cam =cv2.VideoCapture(0)
     s,im = cam.read()
     cv2.imwrite('cal%d.jpg'%x, im)
     cam.release()

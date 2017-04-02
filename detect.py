@@ -34,7 +34,7 @@ def chk_file():
         raise MyException("Please run Caliberate.py|folder dosen't exist")
 
 
-def capture_input_image():
+'''def capture_input_image():
     if (isdir(output_path)):
         shutil.rmtree(output_path)
     os.mkdir(output_path)
@@ -44,13 +44,13 @@ def capture_input_image():
     time.sleep(1)
     print("taking sample")
     time.sleep(1)
-    cam =cv2.VideoCapture(1) #####video capture######
+    cam =cv2.VideoCapture(0) #####video capture######
     s,im=cam.read()
     cv2.imwrite(os.path.join(output_path,'output.jpg'), im)
-    cam.release()
+    cam.release() '''
 
 
-os.chdir(caliberate_path)
+os.chdir(caliberate_path) 
 
 gis = ImageSignature()
 
@@ -63,7 +63,7 @@ for x in range(4):
 
 
 raw_input("Hit ENTER key")
-cam =cv2.VideoCapture(1)
+cam =cv2.VideoCapture(0)
 s,im = cam.read()
 cv2.imwrite('output.jpg', im)
 cam_out= cv2.imread("output.jpg")
