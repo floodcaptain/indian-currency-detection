@@ -19,8 +19,7 @@ from PIL import ImageTk
 caliberate_path=os.getcwd()+'/caliberate'
 output_path= os.getcwd()+ '/output'
 
-def detect_callback():
-	
+def detect_callback():	
 	os.chdir(caliberate_path)
 	gis = ImageSignature()
 
@@ -36,7 +35,9 @@ def detect_callback():
 	cv2.imwrite('output.jpg', im)
 	cam_out= cv2.imread("output.jpg")
 
-
+	img = ImageTk.PhotoImage(Image.open(caliberate_path+'/'+'output.jpg'))
+	panel = tk.Label(root, image = img)
+	panel.pack(side = "bottom", fill = "both", expand = "yes")
 
 	cam_out = gis.generate_signature(cam_out)
 
@@ -49,18 +50,18 @@ def detect_callback():
 	    if distance_values[x]<minv:
 	        minv=distance_values[x]
 	        min_d= x
-	
-
-	'''if min_d==0:
-			return("10 rs :%f"%distance_values[0])
+	        
+	   
+	if min_d==0:
+			return_string = ("Rs 10 ")
 	elif min_d==1:
-		    return("100 rs :%f"%distance_values[1])
+		    return_string = ("Rs 100")
 	elif min_d==2:
-		    return("500 rs :%f"%distance_values[2])
+		    return_string = ("Rs 500")
 	elif min_d==3:
-			return("2000 rs :%f"%distance_values[3])'''        
+			return_string = ("Rs 2000")        
 
-
+	tkMessageBox.showinfo("DETECTION ALERT!", return_string)		
 
 
 def chk_file():
@@ -97,17 +98,13 @@ def capture_input_image():
 
 root = tk.Tk()  
 root.title("currency detector")
-root.geometry('800x600')
+root.geometry('700x500')
 w = tk.Button(root,text ="Detect", command = detect_callback)
 w.pack()
-tk.Label(root, text = "this is test")
-if w==1:
-	tk.Label(root, text = "this is test").grid(row = 1, column = 1)
+
+
 #Results.grid(row = 1, column = 1)
 '''img = ImageTk.PhotoImage(Image.open(caliberate_path+'/'+'output.jpg'))
 panel = tk.Label(master, image = img) '''
 #panel.pack(side = "bottom", fill = "both", expand = "yes")
 tk.mainloop()
-
-
-
